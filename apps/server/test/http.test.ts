@@ -363,8 +363,16 @@ describe('changes and SSE', () => {
     expect(batch.id).toBe(`${s.runtime.store.instance}.3`);
     expect(batch.data.instance).toBe(s.runtime.store.instance);
     expect(hello.data.instance).toBe(s.runtime.store.instance);
+    // The three POSTs may straddle a tick boundary on a slow machine: then there are several
+    // batches, but they must be contiguous and together equal the log.
+    const batches = sse.events.filter((e) => e.event === 'batch');
+    let from = 0;
+    for (const b of batches) {
+      expect(b.data.fromVersion).toBe(from);
+      from = b.data.toVersion;
+    }
     const changes = await s.req('GET', '/api/changes?since=0');
-    expect(batch.data.changes).toEqual(changes.body.changes);
+    expect(batches.flatMap((b) => b.data.changes)).toEqual(changes.body.changes);
     await sse.close();
   });
 
