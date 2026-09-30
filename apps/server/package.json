@@ -1,0 +1,40 @@
+{
+  "name": "@mim/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsup",
+    "start": "node --max-old-space-size=384 dist/main.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:large": "vitest run --config vitest.large.config.ts",
+    "smoke": "tsx scripts/smoke.ts",
+    "load": "tsx scripts/load.ts",
+    "bench:rekey": "node --max-old-space-size=384 --expose-gc --import tsx scripts/bench-rekey.ts"
+  },
+  "dependencies": {
+    "@mim/shared": "workspace:*",
+    "compression": "^1.8.1",
+    "express": "^5.2.1",
+    "fractional-indexing": "^4.0.0",
+    "helmet": "^8.1.0",
+    "pino": "^10.1.0",
+    "pino-http": "^11.0.0",
+    "sorted-btree": "^2.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.5",
+    "@types/node": "^22.18.0",
+    "@types/supertest": "^6.0.3",
+    "fast-check": "^4.3.0",
+    "pino-pretty": "^13.1.2",
+    "supertest": "^7.1.4",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.6",
+    "vitest": "^5.0.2"
+  }
+}

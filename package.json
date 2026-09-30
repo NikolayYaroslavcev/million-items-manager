@@ -1,0 +1,33 @@
+{
+  "name": "million-items-manager",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @mim/server --filter @mim/web dev",
+    "build": "pnpm -r build",
+    "start": "pnpm --filter @mim/server start",
+    "test": "pnpm -r test",
+    "test:large": "pnpm --filter @mim/server test:large",
+    "test:e2e": "pnpm build && pnpm --filter @mim/web e2e",
+    "test:perf": "pnpm build && pnpm --filter @mim/web e2e:perf",
+    "smoke": "pnpm --filter @mim/server smoke",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.71.0"
+  }
+}

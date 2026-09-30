@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/coverage
+.git
+docs
+*.log
+.env
+test-results
+playwright-report
+apps/web/perf-results.json
