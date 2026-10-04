@@ -72,18 +72,18 @@ The state lives in the memory of the process, as the spec allows. When the serve
 
 ## What the spec required and where it is checked
 
-| Requirement                                                 | How it is done                                                                                   | Tests                                                 |
-| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
-| Two lists: unselected and selected                          | two panels, tabs on a phone; the lists are virtualized                                           | `e2e/app.spec.ts`                                     |
-| A million items                                             | the range is computed, the selection is stored as a bitmap; the client holds only the loaded part | `large/million.test.ts`, `perf.spec.ts`               |
-| Filter by ID in both lists                                  | substring search; if a batch comes out incomplete, the client loads more, showing progress       | `nextMatch.test.ts`, `large/million.test.ts`, e2e     |
-| At most 20 at first, then in batches of 20                  | cursor pagination, the server never returns more than 20; the next batch loads on scroll        | `http.test.ts`, `e2e/app.spec.ts`                     |
-| Adding new IDs without duplicates                           | checked on input, an "in queue" badge with a timer; a duplicate is rejected immediately          | `engine.test.ts`, `http.test.ts`, e2e                 |
-| Sorting by drag and drop, including with a filter           | dnd-kit; the position is defined by the neighbors visible on screen; there are Alt+↑/↓ and a "To start / To end" menu | `store.test.ts`, `e2e/app.spec.ts`                    |
-| After a reload the selection and order persist, filters don't | state on the server, filters live only in components                                           | `e2e/app.spec.ts`                                     |
-| Data is shared by everyone                                  | SSE with one connection per browser, polling as a fallback                                       | `web/test/transport.test.ts`, `e2e/sync.spec.ts`      |
-| Queue, deduplication, protection against repeated adding    | FIFO queue, merging identical reads within a tick, `Idempotency-Key`                             | `engine.test.ts`, `http.test.ts`, `atomicity.test.ts` |
-| Adding once per 10 s, everything else once per second       | a tick scheduler without drift accumulation, additions run on every tenth tick                   | `engine.test.ts`                                      |
+| Requirement                                                   | How it is done                                                                                                        | Tests                                                 |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Two lists: unselected and selected                            | two panels, tabs on a phone; the lists are virtualized                                                                | `e2e/app.spec.ts`                                     |
+| A million items                                               | the range is computed, the selection is stored as a bitmap; the client holds only the loaded part                     | `large/million.test.ts`, `perf.spec.ts`               |
+| Filter by ID in both lists                                    | substring search; if a batch comes out incomplete, the client loads more, showing progress                            | `nextMatch.test.ts`, `large/million.test.ts`, e2e     |
+| At most 20 at first, then in batches of 20                    | cursor pagination, the server never returns more than 20; the next batch loads on scroll                              | `http.test.ts`, `e2e/app.spec.ts`                     |
+| Adding new IDs without duplicates                             | checked on input, an "in queue" badge with a timer; a duplicate is rejected immediately                               | `engine.test.ts`, `http.test.ts`, e2e                 |
+| Sorting by drag and drop, including with a filter             | dnd-kit; the position is defined by the neighbors visible on screen; there are Alt+↑/↓ and a "To start / To end" menu | `store.test.ts`, `e2e/app.spec.ts`                    |
+| After a reload the selection and order persist, filters don't | state on the server, filters live only in components                                                                  | `e2e/app.spec.ts`                                     |
+| Data is shared by everyone                                    | SSE with one connection per browser, polling as a fallback                                                            | `web/test/transport.test.ts`, `e2e/sync.spec.ts`      |
+| Queue, deduplication, protection against repeated adding      | FIFO queue, merging identical reads within a tick, `Idempotency-Key`                                                  | `engine.test.ts`, `http.test.ts`, `atomicity.test.ts` |
+| Adding once per 10 s, everything else once per second         | a tick scheduler without drift accumulation, additions run on every tenth tick                                        | `engine.test.ts`                                      |
 
 ## What was verified
 
