@@ -5,6 +5,8 @@
 - Исходный код: https://github.com/NikolayYaroslavcev/million-items-manager
 - Live demo: https://million-items-manager.onrender.com
 
+![Million Items Manager](docs/screenshot.png)
+
 Стек: Express и TypeScript на сервере, React и Vite на клиенте, dnd-kit для перетаскивания, zod для схем, общих у клиента и сервера. Тесты на Vitest и Playwright, монорепозиторий на pnpm.
 
 ## Запуск
